@@ -1,0 +1,57 @@
+.bright-yellow {
+    background-color: #ffd60a;
+}
+
+.mellow-yellow {
+    background-color: #ffc300;
+}
+
+.lightest-blue {
+    background-color: #003566;
+}
+
+.medium-blue {
+    background-color: #001d3d;
+    color: white; 
+}
+.bright-yellow-border {
+    border-color: #ffd60a;
+}
+
+.mellow-yellow-border {
+    border-color: #ffc300;
+}
+
+.lightest-blue-border {
+    border-color: #003566;
+}
+
+.medium-blue-border {
+    border-color: #001d3d;
+    color: white; 
+}
+
+.darkest-blue-border {
+    border-color: #000814;
+    color: white;
+}
+
+.mellow-yellow-text {
+    color: #ffc300;
+}
+
+.white-text {
+    color: white;
+}
+
+.medium-blue-text {
+    color: #001d3d; 
+}
+
+.extremely-large-text {
+    font-size: 3em;
+}
+
+body {
+    background-color: #003566;
+}

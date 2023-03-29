@@ -1,0 +1,79 @@
+* {
+    box-sizing: border-box;
+    --secondary-light: #ffc300; 
+    --main-light: #003566;
+    --main-dark: #001d3d; 
+}
+
+.space {
+    margin: 10px 0;
+}
+
+.hero-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    margin: 2%;
+}
+
+.hero-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-side img, .hero-side svg {
+    width: 2em;
+    stroke: rgba(255, 255, 255, 0.783); 
+}
+
+.hero-left img:hover, .hero-left svg:hover {
+    width: 3em;
+    stroke: rgb(0, 0, 0); 
+}
+
+
+.hero-right {
+    -webkit-writing-mode: vertical-rl;
+    writing-mode: vertical-rl;
+
+    display: flex;
+    align-items: center;
+    justify-content: baseline;
+    
+    color:rgba(255, 255, 255, 0.795); 
+}
+
+.hero-main {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.hero-main img {
+    width: 100%;
+}
+
+.line {
+    min-width: 1px;
+    max-width: 1px;
+    height: 100%;
+    border: 1px solid white;
+    margin-top: 5%;
+    overflow: hidden;
+}
+
+.hero-email-right {
+    cursor: default;
+}
+
+.hero-email-right:hover {
+    color: var(--main-bright);
+}
+
+.rise {
+    transition: .7s ease;
+}
+
+.rise:hover {
+    transform: translateY(-5px);
+}

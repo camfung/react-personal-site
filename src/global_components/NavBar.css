@@ -1,0 +1,121 @@
+* {
+    box-sizing: border-box;
+}
+/* nav styles */
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color: white;
+    margin-left: 10%;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    border-radius: .5em;
+    /* height: 40px; */
+}
+
+.depth {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    perspective: 1000px;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: 3fr 4fr;   
+    align-items: center; 
+}
+
+.nav-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    width: 120px;
+    height: 40px;
+    
+    border-radius: .5em;
+
+    /* margin: 0 10px; */
+    
+    cursor: pointer;
+}
+
+#contact-me {
+    position: relative;
+    left: 75%;
+}
+
+.bg_slider {
+    --initialTextColor: #FFF;
+    --slideTextColor: black;
+
+    --initialBgColor: #001d3d;
+    --slideBgColor: #F9B9F2;
+
+    color: var(--initialTextColor);
+
+    background-image: linear-gradient(90deg,
+        var(--initialBgColor) 0%,
+        var(--initialBgColor) 50%,
+        var(--slideBgColor) 50%,
+        var(--slideBgColor) 100%);
+    background-size: 400%;
+
+    transition: background-position .6s ease-in-out, color .2s linear;
+    transition-delay: 0.0s, 0.15s;
+}
+
+.bg_slider:hover {
+    color: var(--slideTextColor);
+    cursor: pointer;
+    background-position: -50% 100%;
+
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    perspective: 1000px;
+}
+
+.bg_slider-yellow-lightblue {
+    --initialTextColor: #000000;
+    --slideTextColor: black;
+
+    --initialBgColor: #ffc300;
+    --slideBgColor: #F9B9F2;
+
+    color: var(--initialTextColor);
+
+    background-image: linear-gradient(90deg,
+        var(--initialBgColor) 0%,
+        var(--initialBgColor) 50%,
+        var(--slideBgColor) 50%,
+        var(--slideBgColor) 100%);
+    background-size: 400%;
+
+    transition: background-position .6s ease-in-out, color .2s linear;
+    transition-delay: 0.0s, 0.15s;
+}
+
+.bg_slider-yellow-lightblue:hover {
+    color: var(--slideTextColor);
+    cursor: pointer;
+    background-position: -50% 100%;
+}
+
+
+.bold {
+    font-weight: bolder;
+}
+
+.big-text {
+    font-size: x-large;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

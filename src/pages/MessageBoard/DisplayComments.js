@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { initializeApp } from "firebase/app";
 import firebase from 'firebase/compat/app';
 import Comment from './Comment';
+import "./displayComments.css"
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
@@ -24,9 +25,9 @@ const MessageBoard = () => {
   }, []);
 
   return (
-    <div>
+    <div class="messagesWrapper">
       {messages.map((msg) => (
-        <Comment
+        <Comment className="comment"
           userName={msg.name}
           message={msg.message}
           // timestamp={msg.timestamp}

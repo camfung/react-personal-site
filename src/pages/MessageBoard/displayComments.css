@@ -1,0 +1,19 @@
+.messagesWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+.card-title {
+    border-bottom: 1px solid black;
+}
+
+.card {
+    color: black;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+  

@@ -4,15 +4,23 @@ import Button from "../../global_components/Button";
 import { useNavigate } from "react-router-dom";
 import "./Card.css"
 
-function Card() {
+function Card(props) {
+  const navigate = useNavigate();
 
+  const handleButtonClick = (pageName) => {
+    console.log("this")
+      navigate(`/${pageName}`);
+      console.log(pageName)
+    };
+    
   return (
     <div class="card">
-      <img src="https://www.webfx.com/wp-content/uploads/2021/10/generic-image-placeholder.png" class="card-img-top" alt="..."></img>
+      <img src={props.image} class="card-img-top" alt="..."></img>
       <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <Button text="placeholder"></Button>
+        <h5 class="card-title">{props.title}</h5>
+        <p class="card-text">{props.text}</p>
+        {/* <Button text="View Post" onClick={() => handleButtonClick(props.post)}></Button> */}
+        <div class="rise bg_slider nav-button" onClick={() => handleButtonClick(props.post)}><p class="center">post</p></div>
       </div>
     </div>
   );

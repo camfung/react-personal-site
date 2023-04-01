@@ -5,6 +5,7 @@ import Home from "./pages/home/home.js";
 import Blog from "./pages/blog/blog.js";
 import MessageBoard from "./pages/MessageBoard/MessageBoard.js";
 import Resume from "./pages/resume/Resume.js";
+import Assignment3 from "./pages/blog/assignment3/Assignmnet3.js";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/message",
     element: <MessageBoard />,
+  }, 
+  {
+    path: "/assignment3",
+    element: <Assignment3 />,
   }, 
 ]);
 

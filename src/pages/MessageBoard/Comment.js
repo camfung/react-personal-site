@@ -12,7 +12,7 @@ function Comment(props) {
   // const randomImageId = getRandomNumber();
 
   return (
-    <div class="card">
+    <div class="card" >
       {/* <img src={`https://picsum.photos/id/${randomImageId}/200`} alt={`Random image ${randomImageId}`}></img> */}
       
       <div class="card-body">

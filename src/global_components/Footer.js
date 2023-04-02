@@ -17,9 +17,9 @@ export default function Footer()  {
                 </div>
                 <div class="item ">
                     <p>Projects</p>
-                    <a href="" class="list-item">Fractal Generator</a>
-                    <a href="" class="list-item">Playlist Cover Generator</a>
-                    <a href="" class="list-item">Rubiks Cube Solver</a>
+                    <a href="https://github.com/camfung/Fractal-generator" target="_blank" class="list-item">Fractal Generator</a>
+                    <a href="https://github.com/camfung/1800_202210_BBY009" class="list-item" target="_blank">Playlist Cover Generator</a>
+                    <a href="https://github.com/camfung/rubiks_cube" class="list-item" target="_blank">Rubiks Cube Solver</a>
                 </div>   
                 <div class="item" id="socials">
                     <p>Socials</p>

@@ -5,7 +5,7 @@ function Button(props) {
 
   return (
     <div class="wrapper">
-        <div class="rise bg_slider nav-button"><p class="center">{props.text}</p></div>
+        <div class="rise bg_slider nav-button" onClick={props.onClick}><p class="center">{props.text}</p></div>
     </div>
   );
 }

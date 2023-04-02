@@ -6,6 +6,9 @@ import Blog from "./pages/blog/blog.js";
 import MessageBoard from "./pages/MessageBoard/MessageBoard.js";
 import Resume from "./pages/resume/Resume.js";
 import Assignment3 from "./pages/blog/assignment3/Assignmnet3.js";
+import Perlin from "./pages/blog/perlinNoise/Perlin.js";
+import StaticWebAppTutorial from "./pages/blog/Azurewebapp/staticWebAppTutorial.js";
+import Internship from "./pages/blog/Internship/Internship.js";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -30,8 +33,20 @@ const router = createBrowserRouter([
     element: <MessageBoard />,
   }, 
   {
+    path: "/perlin",
+    element: <Perlin />,
+  }, 
+  {
     path: "/assignment3",
     element: <Assignment3 />,
+  }, 
+  {
+    path: "/staticWebAppTutorial",
+    element: <StaticWebAppTutorial />,
+  }, 
+  {
+    path: "/internship",
+    element: <Internship />,
   }, 
 ]);
 

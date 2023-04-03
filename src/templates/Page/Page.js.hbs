@@ -1,0 +1,21 @@
+import React from 'react';
+import NavBar from "../../../global_components/NavBar";
+import Footer from '../../../global_components/Footer';
+import "../../../global_components/backgroundcolors.css"
+import { useNavigate } from "react-router-dom";
+import {{name}} from './{{name}}.js';
+
+
+function {{name}}() {
+
+  return (
+    <div class="{{name}}Wrapper">
+      <NavBar></NavBar>
+        <{{name}}></{{name}}>
+      <Footer></Footer>
+      
+    </div>
+  );
+}
+
+export default {{name}};

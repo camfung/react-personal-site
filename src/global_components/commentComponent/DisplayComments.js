@@ -6,12 +6,12 @@ import "./displayComments.css"
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
-const MessageBoard = () => {
+const MessageBoard = (props) => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     const firestore = firebase.firestore();
-    const messagesCollection = firestore.collection('MessageBoard');
+    const messagesCollection = firestore.collection(props.page);
 
     const unsubscribe = messagesCollection.onSnapshot((snapshot) => {
       const messagesList = snapshot.docs.map((doc) => ({

@@ -20,6 +20,7 @@ function NavBar() {
                 <div class="rise bg_slider nav-button" ><p class="center">Contact</p></div>
                 <div class="rise bg_slider nav-button" onClick={() => handleButtonClick("blog")}><p class="center">Blog</p></div>
                 <div class="rise bg_slider nav-button" onClick={() => handleButtonClick("message")}><p class="center">Message Board</p></div>
+                <div class="rise bg_slider nav-button" onClick={() => handleButtonClick("commentSection")}><p class="center">comments</p></div>
             </nav>
 
             <div id="contact-me" class="rise nav-button mellow-yellow bg_slider-yellow-lightblue depth" onClick={() => handleButtonClick("resume")}><p>Resume</p></div>

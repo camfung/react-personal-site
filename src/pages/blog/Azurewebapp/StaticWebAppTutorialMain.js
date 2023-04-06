@@ -1,6 +1,6 @@
 import React from 'react';
 import "./staticWebAppTutorialMain.css"
-
+import "../blogPosts.css";
 import "../../../global_components/backgroundcolors.css"
 
 function PerlinMain() {

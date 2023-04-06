@@ -4,7 +4,7 @@ import Footer from '../../../global_components/Footer';
 import "../../../global_components/backgroundcolors.css"
 import { useNavigate } from "react-router-dom";
 import Assignment3Main from './Assignment3Main';
-
+import "../blogPosts.css";
 
 function Assignment3() {
 

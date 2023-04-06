@@ -64,6 +64,7 @@
 
 .hero-email-right {
     cursor: default;
+    color: white; 
 }
 
 .hero-email-right:hover {

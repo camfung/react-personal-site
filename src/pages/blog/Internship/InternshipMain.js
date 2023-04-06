@@ -34,6 +34,10 @@ function InternshipMain() {
       <p> He has a page on his website that goes over 6 tips but this one is my favorite</p>
       <img src={image} alt="Image Name" className="internshipImage" />
 
+      <h2>Find Open Source Projects</h2>
+      <p>Something that is a cool thing to do is looking for an open souce project and contributing to the project.</p>
+      <p>On GitHub repos will have issues that you can do and contribute to.</p>
+      <p>This will help you practice building projects not from scratch because in the workplace you will almost never be starting a project from scratch.</p>
 
     </div>
   );

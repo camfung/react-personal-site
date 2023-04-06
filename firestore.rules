@@ -6,7 +6,7 @@ service cloud.firestore {
       return request.time.toMillis() - resource.data.lastRequestTime.toMillis() > 60000;
     }
     
-    match /MessageBoard/{documentId} {
+    match /{collectionId}/{documentId} {
       // Only allow 1 request per minute for unauthenticated users
       allow write: if request.auth == null;
       // Update last request time with current timestamp on successful write

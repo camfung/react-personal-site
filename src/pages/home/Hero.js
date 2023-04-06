@@ -43,7 +43,7 @@ export default function Hero() {
         </main>
 
         <div class="hero-side hero-right" >
-            <p class="rise hero-email-right">CameronFuung@gmail.com</p>
+            <p class="rise hero-email-right" href="Cameronfuung@gmail.com" target="_blank">CameronFuung@gmail.com</p>
             <div class="line"></div>
         </div>
 

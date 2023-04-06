@@ -5,9 +5,11 @@ import Comment from './Comment';
 import "./displayComments.css"
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import CommentCounter from './CommentCounter';
 
 const MessageBoard = (props) => {
   const [messages, setMessages] = useState([]);
+  const [commentCount, setCommentCount] = useState(0);
 
   useEffect(() => {
     const firestore = firebase.firestore();
@@ -19,13 +21,15 @@ const MessageBoard = (props) => {
         ...doc.data(),
       }));
       setMessages(messagesList);
+      setCommentCount(messagesList.length);
     });
-
+    
     return () => unsubscribe();
   }, []);
 
   return (
     <div class="messagesWrapper">
+      <CommentCounter count={commentCount} page={props.page}></CommentCounter>
       {messages.map((msg) => (
         <Comment className="comment"
           userName={msg.name}

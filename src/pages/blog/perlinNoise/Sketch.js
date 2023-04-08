@@ -5,6 +5,9 @@ const Sketch = () => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
+    
+
+
     const sketch = new p5((p) => {
       let yoff = 0;
 
@@ -14,7 +17,7 @@ const Sketch = () => {
       };
 
       p.draw = () => {
-        p.background(220);
+        p.background(0, 53,102);
 
         p.stroke(0);
         p.noFill();

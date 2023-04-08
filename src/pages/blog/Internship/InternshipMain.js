@@ -29,7 +29,7 @@ function InternshipMain() {
       <TableOfContents></TableOfContents>
 
       <h2> Caleb Shoeppe</h2> 
-      <a href="https://calebschoepp.com/blog/2022/6-tips-for-starting-a-software-engineering-internship/"></a>
+      <p>You can go to his website<a href="https://calebschoepp.com/blog/2022/6-tips-for-starting-a-software-engineering-internship/">here</a>.</p>
       <p> Caleb is a software engineer at Microsoft and he has a youtube channel where he talks about his journey to becoming a software engineer and he also has a blog where he talks about his journey and he also has a podcast where he talks about his journey. </p>
       <p> He has a page on his website that goes over 6 tips but this one is my favorite</p>
       <img src={image} alt="Image Name" className="internshipImage" />

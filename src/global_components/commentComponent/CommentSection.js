@@ -10,8 +10,8 @@ function CommentSection(props) {
   return (
     <div class="wrapper">
         <CommentHeader page={props.page}></CommentHeader>
-        <DisplayComments page={props.page}></DisplayComments>
         <EnterComment page={props.page}></EnterComment>
+        <DisplayComments page={props.page}></DisplayComments>
     </div>
   );
 }

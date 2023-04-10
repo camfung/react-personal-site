@@ -19,7 +19,6 @@ function Card(props) {
       <div class="card-body">
         <h5 class="card-title">{props.title}</h5>
         <p class="card-text">{props.text}</p>
-        {/* <Button text="View Post" onClick={() => handleButtonClick(props.post)}></Button> */}
         <div class="rise bg_slider nav-button" onClick={() => handleButtonClick(props.post)}><p class="center">See Post</p></div>
       </div>
     </div>

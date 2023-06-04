@@ -1,0 +1,4 @@
+.imagesWrapper {
+    display: flex;   
+    flex-wrap: wrap;
+}

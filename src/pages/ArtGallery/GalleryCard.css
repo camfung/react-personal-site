@@ -1,0 +1,67 @@
+:root {
+    --bright-yellow: #ffd60a;
+    --mellow-yellow: #ffc300;
+    --lightest-blue: #003566;
+    --medium-blue: #001d3d;
+    --darkest-blue: #000814;
+  }
+  
+  .card {
+    width: 300px;
+    background-color: var(--bright-yellow);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 2px solid var(--bright-yellow);
+  }
+  
+  .card-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .card-content {
+    padding: 16px;
+  }
+  
+  .artist-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--medium-blue);
+  }
+  
+  .description {
+    margin-top: 8px;
+    color: var(--medium-blue);
+  }
+  
+  .medium-blue {
+    color: white;
+  }
+  
+  .medium-blue-border {
+    border-color: var(--medium-blue);
+    color: white;
+  }
+  
+  .bright-yellow-border {
+    border-color: var(--bright-yellow);
+  }
+  
+  .mellow-yellow-text {
+    color: var(--mellow-yellow);
+  }
+  
+  .white-text {
+    color: white;
+  }
+  
+  .extremely-large-text {
+    font-size: 3em;
+  }
+  
+  body {
+    background-color: var(--lightest-blue);
+    color: white;
+  }
+  

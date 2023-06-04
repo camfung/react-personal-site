@@ -3,6 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import Home from "./pages/home/home.js";
 import Blog from "./pages/blog/blog.js";
+import ArtGallery from "./pages/ArtGallery/ArtGallery.js";
 import MessageBoard from "./pages/MessageBoard/MessageBoard.js";
 import Resume from "./pages/resume/Resume.js";
 import Assignment3 from "./pages/blog/assignment3/Assignmnet3.js";
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
   {
     path: "/commentSection",
     element: <CommentSection page="MessageBoard"/>,
+  },
+  {
+    path: "/draw",
+    element: <ArtGallery page="ArtGallery"/>,
   }, 
 ]);
 

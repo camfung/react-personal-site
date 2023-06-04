@@ -35,7 +35,7 @@ export default function Footer()  {
                     <input type="text" placeholder='Last Name' class=""/>
                     <input type="email" placeholder='Email'/> 
                     <textarea placeholder='Message'></textarea>
-                    <input type="submit" class="rise nav-button mellow-yellow bg_slider-yellow-lightblue depth"/>
+                    <input type="submit" class="rise nav-button mellow-yellow bg_slider-yellow-lightblue "/>
                 </form>
             </div>
         </div>

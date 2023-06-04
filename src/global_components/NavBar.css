@@ -123,3 +123,20 @@ nav a {
 .home {
     cursor: pointer;
 }
+
+@media (max-width: 768px) {
+    .header {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+  
+    .nav-button {
+      width: 100%;
+      margin: 10px 0;
+    }
+  
+    #contact-me {
+      position: relative;
+      left: 0;
+    }
+  }

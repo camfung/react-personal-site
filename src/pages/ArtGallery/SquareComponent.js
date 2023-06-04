@@ -32,6 +32,15 @@ const handleInputChangeName = (event) => {
 const handleInputChangeDescription = (event) => {
     setDescription(event.target.value);
 };
+function capitalizeWords(sentence) {
+    let words = sentence.toLowerCase().split(" ");
+  
+    for (let i = 0; i < words.length; i++) {
+      words[i] = words[i].charAt(0).toUpperCase() + words[i].substring(1);
+    }
+  
+    return words.join(" ");
+  }
     const canvasRef = useRef(null);
     const clearCanvas = () => {
         canvasRef.current.clearCanvas();
@@ -63,9 +72,15 @@ const handleInputChangeDescription = (event) => {
         event.preventDefault();
         
         try {
+            if (!name || !description) {
+                alert('Please enter a name and title!');
+                return;
+            }
+
         const data = await canvasRef.current.exportImage('png');
         const boardRef = firebase.firestore().collection('ArtGallery');
-        
+        capitalizeWords(name);
+        capitalizeWords(description);
         await boardRef.add({
             name,
             data,
@@ -127,7 +142,7 @@ const handleInputChangeDescription = (event) => {
             onChange={handleInputChangeName}
             />
             <input type="text" className="description-input" 
-            placeholder='Description'
+            placeholder='Title'
             onChange={handleInputChangeDescription}
             />
             <button className="save-button" onClick={handleSave}>Save</button>

@@ -8,10 +8,10 @@ const Card = ({ imageSrc, artistName, description }) => {
 
   return (
     <div className="card">
+        <h2 className="title" >{description}</h2>
       <ImageDisplay base64String={imageSrc} altText={"test"}></ImageDisplay>
       <div className="card-content">
         <h3 className="artist-name">Drawn by: {artistName}</h3>
-        <p className="description">{description}</p>
       </div>
     </div>
   );

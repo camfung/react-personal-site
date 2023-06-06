@@ -5,6 +5,9 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import GalleryCard from "./GalleryCard.js";
 import "./ShowImages.css"
+import Button from "../../global_components/Button2.js"
+import CommentSection from "../../global_components/commentComponent/CommentSection.js"
+
 
 const ShowImages = (props) => {
 
@@ -20,13 +23,33 @@ const ShowImages = (props) => {
             measurementId: "G-KRV7NT3MC6"
         });
       }
-
-  const [images, setimages] = useState([]);
+      const [currentSelectedImage, setCurrentSelectedImage] = useState(null);
+      const [images, setimages] = useState([]);
+      const [showSelectedImage, setShowSelectedImage] = useState(false);
   const getImage = (data) => {
     var image = new Image();
     image.src = data
     return image;
 }
+
+const handleClick = (data) => {
+  console.log(data);
+  setCurrentSelectedImage(data);
+}
+const handleCardClose = () =>  {
+  setShowSelectedImage(false);
+  setCurrentSelectedImage(null);
+}
+
+
+
+
+  useEffect(() => {
+    if (currentSelectedImage) {
+      setShowSelectedImage(true);
+    }
+  }, [currentSelectedImage]);
+
   useEffect(() => {
     const firestore = firebase.firestore();
     const imagesCollection = firestore.collection("ArtGallery");
@@ -49,9 +72,23 @@ const ShowImages = (props) => {
         artistName={msg.name}
         imageSrc={msg.data}
         description={msg.description}
+        cardData={msg}
+        CustomeClassName="card"
+        funct={handleClick}
           // timestamp={msg.timestamp}
         />
       ))}
+
+      {showSelectedImage && ( 
+        <div className="selectedImage">
+            <Button variant="contained" color="primary" onClick={() => handleCardClose()}> Close </Button>
+            <h1>{currentSelectedImage.description}</h1>
+
+              <img src={currentSelectedImage.data} alt="test" className='image'/>
+            <h1>{currentSelectedImage.name}</h1>
+            <CommentSection page={currentSelectedImage.id}/>
+        </div>
+      )}
     </div>
   );
 };

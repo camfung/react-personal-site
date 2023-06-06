@@ -11,7 +11,7 @@ function MessageBoard() {
   return (
     <div class="wrapper">
       <NavBar></NavBar>
-      <DrawImage> </DrawImage>
+      <DrawImage></DrawImage>
       <ShowImages></ShowImages>
       <Footer></Footer>
     </div>

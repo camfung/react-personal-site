@@ -1,16 +1,13 @@
 import React from 'react';
-import { useRef } from 'react';
 
-const Card = ({ imageSrc, artistName, description, cardData, funct, CustomeClassName}) => {
-  const test = () => {
-    funct(cardData);
-  } 
+const ImagePage = ({ imageSrc, artistName, description }) => {
+
     const ImageDisplay = ({ base64String, altText }) => {
         return <img src={`${base64String}`} alt={altText} className='card-image'/>;
       };
 
   return (
-    <div onClick={test} className={CustomeClassName}>
+    <div className="square">
         <h2 className="title" >{description}</h2>
       <ImageDisplay base64String={imageSrc} altText={"test"}></ImageDisplay>
       <div className="card-content">
@@ -20,4 +17,4 @@ const Card = ({ imageSrc, artistName, description, cardData, funct, CustomeClass
   );
 };
 
-export default Card;
+export default ImagePage;

@@ -112,7 +112,6 @@ function capitalizeWords(sentence) {
                 className="canvas"
 
                 ></ReactSketchCanvas>
-                <div className="resize-handle"></div>
             </div>
             <div className="buttons-wrapper">
                 <button className="undo-button do-button" onClick={undo}></button>

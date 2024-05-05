@@ -16,6 +16,7 @@ import {
 } from "react-router-dom";
 import "./index.css";
 import CommentSection from "./global_components/commentComponent/CommentSection.js";
+import StreamingHome from "./pages/Streaming/StreamingHome.jsx";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
     path: "/draw",
     element: <ArtGallery page="ArtGallery"/>,
   }, 
+  {
+    path: "/streaming",
+    element: <StreamingHome></StreamingHome>
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

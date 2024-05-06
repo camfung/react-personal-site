@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import "../backgroundcolors.css"
-import { useNavigate } from "react-router-dom";
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';

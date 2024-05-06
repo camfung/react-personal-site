@@ -18,6 +18,7 @@ import "./index.css";
 import CommentSection from "./global_components/commentComponent/CommentSection.js";
 import StreamingHome from "./pages/Streaming/StreamingHome.jsx";
 import app from "./firebase.js"; // THIS IS IMPORTANT FOR FIREBASE TO WORK
+import PrivateRoute from "./global_components/SignInSignUpPage.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -62,7 +63,11 @@ const router = createBrowserRouter([
   {
     path: "/streaming",
     element: <StreamingHome></StreamingHome>
-  }
+  },
+  // {
+  //   path: "/signin",
+  //   element: <PrivateRoute></PrivateRoute>
+  // }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

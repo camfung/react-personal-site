@@ -17,7 +17,7 @@ import {
 import "./index.css";
 import CommentSection from "./global_components/commentComponent/CommentSection.js";
 import StreamingHome from "./pages/Streaming/StreamingHome.jsx";
-
+import app from "./firebase.js"; // THIS IS IMPORTANT FOR FIREBASE TO WORK
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,35 +30,35 @@ const router = createBrowserRouter([
   {
     path: "/resume",
     element: <Resume />,
-  }, 
+  },
   {
     path: "/message",
     element: <MessageBoard />,
-  }, 
+  },
   {
     path: "/perlin",
     element: <Perlin />,
-  }, 
+  },
   {
     path: "/assignment3",
     element: <Assignment3 />,
-  }, 
+  },
   {
     path: "/staticWebAppTutorial",
     element: <StaticWebAppTutorial />,
-  }, 
+  },
   {
     path: "/internship",
     element: <Internship />,
-  }, 
+  },
   {
     path: "/commentSection",
-    element: <CommentSection page="MessageBoard"/>,
+    element: <CommentSection page="MessageBoard" />,
   },
   {
     path: "/draw",
-    element: <ArtGallery page="ArtGallery"/>,
-  }, 
+    element: <ArtGallery page="ArtGallery" />,
+  },
   {
     path: "/streaming",
     element: <StreamingHome></StreamingHome>

@@ -37,7 +37,7 @@ function MediaCard({ episode, updateEpisode }) {
                     </Typography>
                 )}
                 <Typography variant="body2">
-                    ID: {episode.id} (Type: {episode.idType})
+                    ID: {episode.imdbId} (Type: {episode.idType})
                 </Typography>
                 <Typography variant="body2">
                     Show: {episode.isShow ? "Yes" : "No"}

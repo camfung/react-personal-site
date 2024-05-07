@@ -48,7 +48,6 @@ function StreamingHome() {
     const db = firebase.firestore();
     const userRef = db.collection('streamingApp').doc('userIds').collection(user.uid);
 
-    console.log("🚀 ~ writeShowToFirestore ~ showData:", showData)
     try {
       const record = {
         episodeNumber: showData.episodeNumber,
@@ -74,7 +73,6 @@ function StreamingHome() {
       setLoading(true);
       const docRef = db.collection(`streamingApp/userIds/${user.uid}`).doc(docId);
       await docRef.update(newData);
-      console.log("Document successfully updated");
       setLoading(false);
     } catch (error) {
       console.error("Error updating document:", error);
@@ -87,7 +85,6 @@ function StreamingHome() {
     <PrivateRoute user={user} setUser={setUser}>
 
       <Box>
-        <Button text="test" onClick={updateDocument}></Button>
 
         <MediaForm fetchDocuments={fetchDocuments} writeShowToFirestore={writeShowToFirestore}></MediaForm>
 

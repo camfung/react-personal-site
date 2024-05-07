@@ -4,8 +4,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 // todo change the count to be passed in so that it can be updated by the parent componet
-function Counter() {
-    const [count, setCount] = useState(0);
+function Counter({ count, setCount }) {
 
     const handleIncrement = () => {
         setCount(count + 1);

@@ -63,15 +63,7 @@ function StreamingHome() {
     }
   }, [user]);
 
-  const updateDocument = async () => {
-    let docId = "tt26047818"
-    let newData = {
-      title: "The Dark Knight",
-      episodeNumber: 1,
-      seasonNumber: 1,
-      idType: "movie",
-      id: "tt0460649"
-    }
+  const updateDocument = async (docId, newData) => {
     const db = firebase.firestore();
     if (!user) {
       console.error("No user logged in");
@@ -80,7 +72,7 @@ function StreamingHome() {
 
     try {
       setLoading(true);
-      const docRef = db.collection(`streamingApp/userIds/dJJSZNrdzUdsqGJDWohAtTupOo52`).doc(docId);
+      const docRef = db.collection(`streamingApp/userIds/${user.uid}`).doc(docId);
       await docRef.update(newData);
       console.log("Document successfully updated");
       setLoading(false);
@@ -102,7 +94,7 @@ function StreamingHome() {
         <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
           {
             documents.map((doc) => {
-              return <MediaGrid episode={doc} key={doc.id}></MediaGrid>
+              return <MediaGrid updateEpisode={updateDocument} episode={doc} key={doc.id}></MediaGrid>
             })
           }
         </Box>

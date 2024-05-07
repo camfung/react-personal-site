@@ -11,7 +11,7 @@
     padding: 5% 10%;
 
     /* position: absolute; */
-    bottom: 0;
+    /* bottom: 0; */
 }
 
 .border-right {
@@ -20,13 +20,19 @@
 
 input[type="text"] {
     width: calc(50% - 10px);
-} 
+}
 
-input[type="email"], textarea, input[type="submit"] {
+input[type="email"],
+textarea,
+input[type="submit"] {
     width: calc(100% - 10px);
 }
 
-input[type="email"], textarea, input[type="text"], input[type="submit"], #contact-p {
+input[type="email"],
+textarea,
+input[type="text"],
+input[type="submit"],
+#contact-p {
     margin: 5px;
 }
 
@@ -38,7 +44,7 @@ input[type="email"], textarea, input[type="text"], input[type="submit"], #contac
     color: rgba(255, 255, 255, 0.505);
     display: block;
     margin: 5px 0;
-    padding: 5px; 
+    padding: 5px;
     text-decoration: none;
 }
 

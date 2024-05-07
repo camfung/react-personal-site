@@ -10,6 +10,7 @@ import Button from '../../global_components/Button';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { create } from '@mui/material/styles/createTransitions';
 import firebase from 'firebase/compat/app';
+import firestore from 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { Box } from '@mui/material';
@@ -28,9 +29,7 @@ function StreamingHome() {
     try {
       setLoading(true);
       const querySnapshot = await db.collection(`streamingApp/userIds/${user.uid}`).get();
-      for (const doc of querySnapshot.docs) {
-        console.log(doc.data())
-      }
+
       const docs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       console.log(docs)
       setDocuments(docs);
@@ -46,16 +45,6 @@ function StreamingHome() {
   }, [user]);
 
   const writeShowToFirestore = useCallback(async (showData) => {
-    console.log("Authenticated user ID:", firebase.auth().currentUser.uid);
-
-    // const showData = {
-    //   episodeNumber: 1,
-    //   seasonNumber: 1,
-    //   isShow: true,
-    //   idType: "IMDB",
-    //   id: "tt1234567",
-    //   title: "Example Show Title"
-    // }
     const db = firebase.firestore();
     const userRef = db.collection('streamingApp').doc('userIds').collection(user.uid);
 
@@ -65,7 +54,7 @@ function StreamingHome() {
         episodeNumber: showData.episodeNumber,
         seasonNumber: showData.seasonNumber,
         idType: showData.idType,
-        id: showData.imdbId,
+        imdbId: showData.imdbId,
         title: showData.title
       }
       const showRef = await userRef.add(record);
@@ -74,11 +63,39 @@ function StreamingHome() {
     }
   }, [user]);
 
+  const updateDocument = async () => {
+    let docId = "tt26047818"
+    let newData = {
+      title: "The Dark Knight",
+      episodeNumber: 1,
+      seasonNumber: 1,
+      idType: "movie",
+      id: "tt0460649"
+    }
+    const db = firebase.firestore();
+    if (!user) {
+      console.error("No user logged in");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const docRef = db.collection(`streamingApp/userIds/dJJSZNrdzUdsqGJDWohAtTupOo52`).doc(docId);
+      await docRef.update(newData);
+      console.log("Document successfully updated");
+      setLoading(false);
+    } catch (error) {
+      console.error("Error updating document:", error);
+      setLoading(false);
+    }
+  }
+
 
   return (
     <PrivateRoute user={user} setUser={setUser}>
 
       <Box>
+        <Button text="test" onClick={updateDocument}></Button>
 
         <MediaForm fetchDocuments={fetchDocuments} writeShowToFirestore={writeShowToFirestore}></MediaForm>
 

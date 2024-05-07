@@ -10,7 +10,11 @@ function MediaCard({ episode }) {
         if (episode) {
             const baseUrl = "https://vidsrc.xyz/embed";
             const path = episode.idType === "movie" ? "movie" : "tv";
-            const constructedUrl = `${baseUrl}/${path}/${episode.id}/${episode.seasonNumber}-${episode.episodeNumber}`;
+            let constructedUrl = `${baseUrl}/${path}/${episode.imdbId}/`;
+            if (path == "tv") {
+                constructedUrl += `${episode.seasonNumber}-${episode.episodeNumber}`;
+            }
+
             setUrl(constructedUrl);
         }
     }, [episode]);
@@ -37,14 +41,18 @@ function MediaCard({ episode }) {
                     Show: {episode.isShow ? "Yes" : "No"}
                 </Typography>
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: 2 }}>
-                    <Button onClick={() => openNewTab(url)} text="Watch" />
+                    <Button onClick={() => {
+                        openNewTab(url)
+                    }} text="Watch" />
                     <Button text="Update" />
                 </Box>
                 <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
                     <Typography variant="body2">Season:</Typography>
+                    <Counter count={episode.episodeNumber} />
                 </Box>
                 <Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
                     <Typography variant="body2">Episode:</Typography>
+                    <Counter count={episode.seasonNumber} />
                 </Box>
             </CardContent>
         </Card>

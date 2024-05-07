@@ -17,6 +17,7 @@ const PrivateRoute = ({ children, user, setUser }) => {
                 // User is signed in, see docs for a list of available properties
                 // https://firebase.google.com/docs/reference/js/auth.user
                 setUser(user)
+                console.log("🚀 ~ onAuthStateChanged ~ user:", user)
                 // ...
             } else {
                 // User is signed out
@@ -39,7 +40,7 @@ const PrivateRoute = ({ children, user, setUser }) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
             });
-    }, [user, setUser])
+    }, [user, setUser, email, password])
 
     const handleSignIn = () => {
         try {

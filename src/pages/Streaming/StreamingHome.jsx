@@ -1,3 +1,5 @@
+import SignoutButton from '../../global_components/SignoutButton';
+import FireButton from '../../global_components/Button';
 import PrivateRoute from '../../global_components/SignInSignUpPage';
 import VideoPlayer from './VideoPlayer';
 import MediaGrid from './MediaCard';
@@ -6,7 +8,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import NavBar from "../../global_components/NavBar";
 import Footer from '../../global_components/Footer';
 import "../../global_components/backgroundcolors.css"
-import Button from '../../global_components/Button';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { create } from '@mui/material/styles/createTransitions';
 import firebase from 'firebase/compat/app';
@@ -105,6 +106,7 @@ function StreamingHome() {
     <PrivateRoute user={user} setUser={setUser}>
 
       <Box>
+        <SignoutButton setUser={setUser}></SignoutButton>
 
         <MediaForm fetchDocuments={fetchDocuments} writeShowToFirestore={writeShowToFirestore}></MediaForm>
 

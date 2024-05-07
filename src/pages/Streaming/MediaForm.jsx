@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Button from '../../global_components/Button';
+import FireButton from '../../global_components/Button.jsx';
 import { Paper, TextField, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Box } from '@mui/material';
 
 export default function MediaForm({ writeShowToFirestore, fetchDocuments }) {
@@ -71,10 +71,10 @@ export default function MediaForm({ writeShowToFirestore, fetchDocuments }) {
                         />
                     </>
                 )}
-                <Button onClick={() => {
+                <FireButton onClick={() => {
                     writeShowToFirestore(formData)
                     fetchDocuments()
-                }} text="Add Title"></Button>
+                }} text="Add Title"></FireButton>
 
             </Box>
         </Paper>

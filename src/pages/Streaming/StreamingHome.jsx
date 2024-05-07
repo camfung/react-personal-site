@@ -14,6 +14,7 @@ import firestore from 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { Box } from '@mui/material';
+import { doc, deleteDoc } from "firebase/firestore";
 function StreamingHome() {
   const [user, setUser] = useState(null);
   const [documents, setDocuments] = useState([]);
@@ -80,7 +81,26 @@ function StreamingHome() {
     }
   }
 
+  const deleteDocument = useCallback(async (docId) => {
+    const db = firebase.firestore();
+    if (!user) {
+      console.error("No user logged in");
+      return;
+    }
 
+    try {
+      setLoading(true);
+      const docRef = doc(db, `streamingApp/userIds/${user.uid}`, docId);
+      await deleteDoc(docRef);
+      let docs = documents.filter(doc => doc.id !== docId);
+      setDocuments(docs);
+      console.log("Document successfully deleted");
+    } catch (error) {
+      console.error("Error deleting document:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [documents, user]);
   return (
     <PrivateRoute user={user} setUser={setUser}>
 
@@ -91,7 +111,7 @@ function StreamingHome() {
         <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
           {
             documents.map((doc) => {
-              return <MediaGrid updateEpisode={updateDocument} episode={doc} key={doc.id}></MediaGrid>
+              return <MediaGrid deleteDocument={deleteDocument} updateEpisode={updateDocument} episode={doc} key={doc.id}></MediaGrid>
             })
           }
         </Box>

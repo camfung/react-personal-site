@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, Card, CardContent } from '@mui/material';
 import Button from '../../global_components/Button';
 import Counter from './counter';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-function MediaCard({ episode, updateEpisode }) {
+function MediaCard({ episode, updateEpisode, deleteDocument }) {
     const [url, setUrl] = useState("");
     const [seasonNumber, setSeasonNumber] = useState(parseInt(episode.seasonNumber));
     const [episodeNumber, setEpisodeNumber] = useState(parseInt(episode.episodeNumber));
@@ -28,9 +30,14 @@ function MediaCard({ episode, updateEpisode }) {
     return (
         <Card sx={{ maxWidth: 345, m: 2 }}>
             <CardContent>
-                <Typography variant="h5" component="div">
-                    {episode.title}
-                </Typography>
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                    <Typography variant="h5" component="div">
+                        {episode.title}
+                    </Typography>
+                    <IconButton onClick={() => { deleteDocument(episode.id) }} aria-label="delete" style={{ color: 'red' }}>
+                        <DeleteIcon />
+                    </IconButton>
+                </Box>
                 {episode.idType !== "movie" && (
                     <Typography color="text.secondary">
                         Season: {seasonNumber}, Episode: {episodeNumber}

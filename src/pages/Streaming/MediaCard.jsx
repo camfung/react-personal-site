@@ -15,9 +15,15 @@ function MediaCard({ episode, updateEpisode: updateDocument, deleteDocument }) {
     const [url, setUrl] = useState("");
     const [seasonNumber, setSeasonNumber] = useState(parseInt(episode.seasonNumber));
     const [episodeNumber, setEpisodeNumber] = useState(parseInt(episode.episodeNumber));
+    const [imageUrl, setImageUrl] = useState("");
+
     const cardSize = "350px"
 
     useEffect(() => {
+        const fetchImageUrlAndSet = async () => {
+            const imageUrl = await fetchImageUrl(episode.title);
+            setImageUrl(imageUrl);
+        }
         if (episode) {
             const baseUrl = "https://vidsrc.xyz/embed";
             const path = episode.idType === "movie" ? "movie" : "tv";
@@ -27,6 +33,7 @@ function MediaCard({ episode, updateEpisode: updateDocument, deleteDocument }) {
             }
 
             setUrl(constructedUrl);
+            fetchImageUrlAndSet();
         }
     }, [episode, seasonNumber, episodeNumber]);
 
@@ -62,12 +69,9 @@ function MediaCard({ episode, updateEpisode: updateDocument, deleteDocument }) {
         updateDocument(episode.id, { seasonNumber: seasonNumber, episodeNumber: episodeNumber })
         openNewTab(url)
     }
-    const test = () => {
-        console.log(fetchImageUrl("anyone but you"))
-    }
 
     return (
-        <Card sx={{ height: cardSize, width: cardSize, m: 2 }}>
+        <Card sx={{ width: cardSize, m: 2 }}>
             <CardContent sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                     <Typography variant="h5" component="div">
@@ -76,6 +80,9 @@ function MediaCard({ episode, updateEpisode: updateDocument, deleteDocument }) {
                     <IconButton onClick={() => { deleteDocument(episode.id) }} aria-label="delete" style={{ color: 'red' }}>
                         <DeleteIcon />
                     </IconButton>
+                </Box>
+                <Box>
+                    <img style={{ width: "325px" }} src={imageUrl} alt="" />
                 </Box>
                 <Box>
 

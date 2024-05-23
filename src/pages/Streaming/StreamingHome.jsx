@@ -16,10 +16,13 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { Box } from '@mui/material';
 import { doc, deleteDoc } from "firebase/firestore";
+import { Chip, Stack, Paper } from '@mui/material';
+import FireChip from '../../global_components/FireChip';
 function StreamingHome() {
   const [user, setUser] = useState(null);
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [filterState, setFilterState] = useState("All");
   const fetchDocuments = async () => {
     const db = firebase.firestore();
     if (!user) {
@@ -102,13 +105,36 @@ function StreamingHome() {
       setLoading(false);
     }
   }, [documents, user]);
+  const toggleFilter = useCallback((filter) => {
+    setFilterState(filter);
+  }, [setFilterState, filterState])
   return (
     <PrivateRoute user={user} setUser={setUser}>
 
       <Box>
         <SignoutButton setUser={setUser}></SignoutButton>
 
-        <MediaForm fetchDocuments={fetchDocuments} writeShowToFirestore={writeShowToFirestore}></MediaForm>
+        <MediaForm filterState={filterState} fetchDocuments={fetchDocuments} writeShowToFirestore={writeShowToFirestore}></MediaForm>
+
+        <Paper elevation={3} sx={{ padding: 2, margin: 2 }}>
+          <Stack direction="row" spacing={1}>
+            <FireChip
+              label="All"
+              active={filterState == 'All'}
+              onClick={() => toggleFilter('All')}
+            />
+            <FireChip
+              label="Movies"
+              active={filterState == 'Movies'}
+              onClick={() => toggleFilter('Movies')}
+            />
+            <FireChip
+              label="Tv Shows"
+              active={filterState == 'Tv Shows'}
+              onClick={() => toggleFilter('Tv Shows')}
+            />
+          </Stack>
+        </Paper>
 
         <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
           {

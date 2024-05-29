@@ -14,12 +14,18 @@ import firebase from 'firebase/compat/app';
 import firestore from 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-import { Box } from '@mui/material';
+import { Box, Paper } from '@mui/material';
 import { doc, deleteDoc } from "firebase/firestore";
+import { FilterCenterFocusSharp } from '@mui/icons-material';
+import FireChip from '../../global_components/FireChip';
+import Chip from '@mui/material/Chip';
+
 function StreamingHome() {
   const [user, setUser] = useState(null);
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [filters, setFilters] = useState([{ label: "All", value: "all" }, { label: "Movie", value: "movie" }, { label: "TV Show", value: "tvshow" }]);
+  const [activeFilter, setActiveFilter] = useState(filters[0]);
   const fetchDocuments = async () => {
     const db = firebase.firestore();
     if (!user) {
@@ -102,6 +108,12 @@ function StreamingHome() {
       setLoading(false);
     }
   }, [documents, user]);
+  const [on, setOn] = useState(true);
+  const toggle = () => {
+    setOn(!on);
+    console.log(activeFilter)
+    console.log(filters)
+  }
   return (
     <PrivateRoute user={user} setUser={setUser}>
 
@@ -109,11 +121,25 @@ function StreamingHome() {
         <SignoutButton setUser={setUser}></SignoutButton>
 
         <MediaForm fetchDocuments={fetchDocuments} writeShowToFirestore={writeShowToFirestore}></MediaForm>
+        <Chip></Chip>
+
+
+        <Paper style={{ padding: '20px', backgroundColor: 'white', display: "flex", gap: "10px" }}>
+          {filters.map((filter) => <FireChip label={filter.label} active={filter == activeFilter} onClick={() => { setActiveFilter(filter) }} />)}
+        </Paper>
 
         <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
           {
             documents.map((doc) => {
-              return <MediaGrid deleteDocument={deleteDocument} updateEpisode={updateDocument} episode={doc} key={doc.id}></MediaGrid>
+              return (
+                <>
+                  {
+                    activeFilter.value == "all" || activeFilter.value == doc.idType ?
+                      <MediaGrid deleteDocument={deleteDocument} updateEpisode={updateDocument} episode={doc} key={doc.id}></MediaGrid>
+                      : <> </>
+                  }
+                </>
+              )
             })
           }
         </Box>

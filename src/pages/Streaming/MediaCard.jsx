@@ -59,7 +59,7 @@ function MediaCard({ episode, updateEpisode: updateDocument, deleteDocument }) {
     }
 
     const onWatch = () => {
-        updateDocument(episode.id, { seasonNumber: seasonNumber, episodeNumber: episodeNumber })
+        updateDocument(episode.id, { seasonNumber: seasonNumber, episodeNumber: episodeNumber, lastWatched: new Date() })
         openNewTab(url)
     }
     const test = () => {
@@ -67,32 +67,23 @@ function MediaCard({ episode, updateEpisode: updateDocument, deleteDocument }) {
     }
 
     return (
-        <Card sx={{ height: cardSize, width: cardSize, m: 2 }}>
+        <Card sx={{ height: cardSize / 3, width: cardSize, m: 2 }}>
             <CardContent sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                     <Typography variant="h5" component="div">
                         {episode.title}
                     </Typography>
-                    <IconButton onClick={() => { deleteDocument(episode.id) }} aria-label="delete" style={{ color: 'red' }}>
-                        <DeleteIcon />
-                    </IconButton>
+                    <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+
+                        <IconButton onClick={() => { deleteDocument(episode.id) }} aria-label="delete" style={{ color: 'red' }}>
+                            <DeleteIcon />
+                        </IconButton>
+                        <IconButton onClick={onWatch} aria-label="delete" style={{ color: 'black' }}>
+                            <PlayArrowIcon />
+                        </IconButton>
+                    </Box>
                 </Box>
                 <Box>
-
-                    {episode.idType !== "movie" && (
-                        <Typography color="text.secondary">
-                            Season: {seasonNumber}, Episode: {episodeNumber}
-                        </Typography>
-                    )}
-                    <Typography variant="body2">
-                        ID: {episode.imdbId} (Type: {episode.idType})
-                    </Typography>
-                    <Typography variant="body2">
-                        Show: {episode.isShow ? "Yes" : "No"}
-                    </Typography>
-                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: 2 }}>
-                        <Button text="Watch" startIcon={<PlayArrowIcon />} variant="contained" color="primary" onClick={onWatch}></Button>
-                    </Box>
                     {
                         episode.idType !== "movie" && (
                             <>

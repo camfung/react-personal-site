@@ -18,8 +18,8 @@ import { Box, Paper } from '@mui/material';
 import { doc, deleteDoc } from "firebase/firestore";
 import { FilterCenterFocusSharp } from '@mui/icons-material';
 import FireChip from '../../global_components/FireChip';
-import Chip from '@mui/material/Chip';
 
+import FireModal from '../../global_components/FireModal';
 function StreamingHome() {
   const [user, setUser] = useState(null);
   const [documents, setDocuments] = useState([]);
@@ -117,7 +117,7 @@ function StreamingHome() {
       setLoading(false);
     }
   }, [documents, user]);
-  const [on, setOn] = useState(true);
+
 
   return (
     <PrivateRoute user={user} setUser={setUser}>
@@ -126,10 +126,8 @@ function StreamingHome() {
         <SignoutButton setUser={setUser}></SignoutButton>
 
         <MediaForm fetchDocuments={fetchDocuments} writeShowToFirestore={writeShowToFirestore}></MediaForm>
-        <Chip></Chip>
 
-
-        <Paper style={{ padding: '20px', backgroundColor: 'white', display: "flex", gap: "10px" }}>
+        <Paper style={{ marginTop: "20px", padding: '20px', backgroundColor: 'white', display: "flex", gap: "10px" }}>
           {filters.map((filter) => <FireChip label={filter.label} active={filter == activeFilter} onClick={() => { setActiveFilter(filter) }} />)}
         </Paper>
 

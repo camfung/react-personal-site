@@ -9,14 +9,32 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { type } from '@testing-library/user-event/dist/type';
 import axios from 'axios';
-import { CardMembershipOutlined } from '@mui/icons-material';
+import FireModal from '../../global_components/FireModal.jsx';
+import FireButton from '../../global_components/Button.jsx';
+import InfoIcon from '@mui/icons-material/Info';
+
+const iconStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+    marginTop: '20px',
+};
+
+const infoIconStyle = {
+    fontSize: '5rem',
+    color: 'red',
+};
 
 function MediaCard({ episode, updateEpisode: updateDocument, deleteDocument }) {
+    const [open, setOpen] = useState(false);
     const [url, setUrl] = useState("");
     const [seasonNumber, setSeasonNumber] = useState(parseInt(episode.seasonNumber));
     const [episodeNumber, setEpisodeNumber] = useState(parseInt(episode.episodeNumber));
     const cardSize = "350px"
 
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     useEffect(() => {
         if (episode) {
             const baseUrl = "https://vidsrc.xyz/embed";
@@ -68,6 +86,21 @@ function MediaCard({ episode, updateEpisode: updateDocument, deleteDocument }) {
 
     return (
         <Card sx={{ height: cardSize / 3, width: cardSize, m: 2 }}>
+            <FireModal open={open} onClose={handleClose} title="Delete">
+                <Box sx={iconStyle}>
+                    <InfoIcon sx={infoIconStyle} />
+                </Box>
+                <Typography>Are you sure you want to delete this?</Typography>
+
+                <FireButton text="Cancel"></FireButton>
+                <FireButton text="Delete" onClick={() => {
+
+                    console.log("🚀 ~ MediaCard ~ episode:", episode)
+                    deleteDocument(episode.id)
+                }}></FireButton>
+
+
+            </FireModal>
             <CardContent sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                     <Typography variant="h5" component="div">
@@ -75,7 +108,7 @@ function MediaCard({ episode, updateEpisode: updateDocument, deleteDocument }) {
                     </Typography>
                     <Box sx={{ display: "flex", justifyContent: "space-around" }}>
 
-                        <IconButton onClick={() => { deleteDocument(episode.id) }} aria-label="delete" style={{ color: 'red' }}>
+                        <IconButton onClick={() => { setOpen(true) }} aria-label="delete" style={{ color: 'red' }}>
                             <DeleteIcon />
                         </IconButton>
                         <IconButton onClick={onWatch} aria-label="delete" style={{ color: 'black' }}>

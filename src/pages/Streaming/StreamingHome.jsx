@@ -40,6 +40,15 @@ function StreamingHome() {
 
       const docs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       console.log(docs)
+      docs.sort((a, b) => {
+        if (a.lastWatched > b.lastWatched) {
+          return -1;
+        }
+        if (a.lastWatched < b.lastWatched) {
+          return 1;
+        }
+        return 0;
+      });
       setDocuments(docs);
       setLoading(false);
     } catch (error) {
@@ -109,11 +118,7 @@ function StreamingHome() {
     }
   }, [documents, user]);
   const [on, setOn] = useState(true);
-  const toggle = () => {
-    setOn(!on);
-    console.log(activeFilter)
-    console.log(filters)
-  }
+
   return (
     <PrivateRoute user={user} setUser={setUser}>
 

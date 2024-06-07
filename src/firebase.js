@@ -3,6 +3,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { initializeApp } from "firebase/app";
+import { getFunctions } from 'firebase/functions';
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -34,7 +35,7 @@ if (!firebase.apps.length) {
 }
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
+const functions = getFunctions(app);
 // Initialize Firebase Authentication and get a reference to the service
 
 export default app;

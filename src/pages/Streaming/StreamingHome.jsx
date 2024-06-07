@@ -18,8 +18,9 @@ import { Box, Paper } from '@mui/material';
 import { doc, deleteDoc } from "firebase/firestore";
 import { FilterCenterFocusSharp } from '@mui/icons-material';
 import FireChip from '../../global_components/FireChip';
-
+import { getFunctions, httpsCallable, connectFunctionsEmulator } from "firebase/functions";
 import FireModal from '../../global_components/FireModal';
+import { getApp } from "firebase/app";
 function StreamingHome() {
   const [user, setUser] = useState(null);
   const [documents, setDocuments] = useState([]);
@@ -118,6 +119,23 @@ function StreamingHome() {
     }
   }, [documents, user]);
 
+  const test = () => {
+    const functions = getFunctions(getApp());
+    connectFunctionsEmulator(functions, "127.0.0.1", 5001);
+    console.log("🚀 ~ test ~ functions:", functions)
+    const search = httpsCallable(functions, 'searchMedia');
+
+    search({
+      "query": "inception",
+      "include_adult": false,
+      "language": "en",
+      "primary_release_year": "2010",
+      "page": 1,
+      "region": "US",
+      "year": "2010"
+    })
+
+  }
 
   return (
     <PrivateRoute user={user} setUser={setUser}>

@@ -119,23 +119,7 @@ function StreamingHome() {
     }
   }, [documents, user]);
 
-  const test = () => {
-    const functions = getFunctions(getApp());
-    connectFunctionsEmulator(functions, "127.0.0.1", 5001);
-    console.log("🚀 ~ test ~ functions:", functions)
-    const search = httpsCallable(functions, 'searchMedia');
 
-    search({
-      "query": "inception",
-      "include_adult": false,
-      "language": "en",
-      "primary_release_year": "2010",
-      "page": 1,
-      "region": "US",
-      "year": "2010"
-    })
-
-  }
 
   return (
     <PrivateRoute user={user} setUser={setUser}>

@@ -129,7 +129,7 @@ function StreamingHome() {
 
         <MediaForm fetchDocuments={fetchDocuments} writeShowToFirestore={writeShowToFirestore}></MediaForm>
 
-        <Paper style={{ marginTop: "20px", padding: '20px', backgroundColor: 'white', display: "flex", gap: "10px" }}>
+        <Paper style={{margin: "16px", marginTop: "20px", padding: '20px', backgroundColor: 'white', display: "flex", gap: "10px" }}>
           {filters.map((filter) => <FireChip label={filter.label} active={filter == activeFilter} onClick={() => { setActiveFilter(filter) }} />)}
         </Paper>
 

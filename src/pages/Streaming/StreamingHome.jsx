@@ -3,7 +3,7 @@ import { DndContext } from '@dnd-kit/core';
 import FireButton from '../../global_components/Button';
 import PrivateRoute from '../../global_components/SignInSignUpPage';
 import VideoPlayer from './VideoPlayer';
-import MediaGrid from './MediaCard';
+import { DraggableMediaCard } from './DraggableMediaCard';
 import MediaForm from './MediaForm';
 import React, { useCallback, useEffect, useState } from 'react';
 import NavBar from "../../global_components/NavBar";
@@ -186,7 +186,7 @@ function StreamingHome() {
                     <>
                       {
                         (activeFilter.value == "all" || activeFilter.value == doc.idType) && doc.watchStatus == watchStatuses.currentlyWatching ?
-                          <MediaGrid deleteDocument={deleteDocument} updateEpisode={updateDocument} episode={doc} key={doc.id}></MediaGrid>
+                          <DraggableMediaCard deleteDocument={deleteDocument} updateEpisode={updateDocument} episode={doc} key={doc.id}></DraggableMediaCard>
                           : <> </>
                       }
                     </>
@@ -205,9 +205,7 @@ function StreamingHome() {
                     <>
                       {
                         (activeFilter.value == "all" || activeFilter.value == doc.idType) && doc.watchStatus == watchStatuses.watchList ?
-                          <Draggable>
-                            <MediaGrid deleteDocument={deleteDocument} updateEpisode={updateDocument} episode={doc} key={doc.id}></MediaGrid>
-                          </Draggable>
+                          <DraggableMediaCard deleteDocument={deleteDocument} updateEpisode={updateDocument} episode={doc} key={doc.id}></DraggableMediaCard>
                           : <> </>
                       }
                     </>
@@ -226,10 +224,8 @@ function StreamingHome() {
                     <>
                       {
                         (activeFilter.value == "all" || activeFilter.value == doc.idType) && (doc.watchStatus == watchStatuses.archived || doc.watchStatus == null) ?
-                          <Draggable>
 
-                            <MediaGrid deleteDocument={deleteDocument} updateEpisode={updateDocument} episode={doc} key={doc.id}></MediaGrid>
-                          </Draggable>
+                          <DraggableMediaCard deleteDocument={deleteDocument} updateEpisode={updateDocument} episode={doc} key={doc.id}></DraggableMediaCard>
                           : <> </>
                       }
                     </>

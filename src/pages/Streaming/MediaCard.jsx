@@ -12,6 +12,7 @@ import axios from 'axios';
 import FireModal from '../../global_components/FireModal.jsx';
 import FireButton from '../../global_components/Button.jsx';
 import InfoIcon from '@mui/icons-material/Info';
+import { watchStatuses } from './StreamingHome.jsx';
 
 const iconStyle = {
     display: 'flex',
@@ -25,6 +26,7 @@ const infoIconStyle = {
     fontSize: '5rem',
     color: 'red',
 };
+
 
 function MediaCard({ episode, updateEpisode: updateDocument, deleteDocument }) {
     const [open, setOpen] = useState(false);
@@ -77,7 +79,7 @@ function MediaCard({ episode, updateEpisode: updateDocument, deleteDocument }) {
     }
 
     const onWatch = () => {
-        updateDocument(episode.id, { seasonNumber: seasonNumber, episodeNumber: episodeNumber, lastWatched: new Date() })
+        updateDocument(episode.id, { seasonNumber: seasonNumber, episodeNumber: episodeNumber, lastWatched: new Date(), watchStatus: watchStatuses.currentlyWatching })
         openNewTab(url)
     }
     const test = () => {
@@ -92,7 +94,7 @@ function MediaCard({ episode, updateEpisode: updateDocument, deleteDocument }) {
                 </Box>
                 <Typography>Are you sure you want to delete this?</Typography>
 
-                <FireButton text="Cancel"></FireButton>
+                <FireButton text="Cancel" onClick={handleClose}></FireButton>
                 <FireButton text="Delete" onClick={() => {
 
                     console.log("🚀 ~ MediaCard ~ episode:", episode)
@@ -107,7 +109,6 @@ function MediaCard({ episode, updateEpisode: updateDocument, deleteDocument }) {
                         {episode.title}
                     </Typography>
                     <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-
                         <IconButton onClick={() => { setOpen(true) }} aria-label="delete" style={{ color: 'red' }}>
                             <DeleteIcon />
                         </IconButton>

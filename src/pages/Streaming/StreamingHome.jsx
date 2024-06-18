@@ -22,7 +22,11 @@ import { Divider, Typography } from '@mui/material';
 import { TestDraggable } from './testdrag';
 import { Droppable } from './Droppable';
 import { Draggable } from './Draggable';
-
+import Accordion from '@mui/material/Accordion';
+import AccordionActions from '@mui/material/AccordionActions';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { DndContext, KeyboardSensor, MouseSensor, PointerSensor, TouchSensor, closestCorners, useSensor, useSensors } from "@dnd-kit/core"
 import FireModal from '../../global_components/FireModal';
 import MediaCard from './MediaCard';
@@ -205,6 +209,8 @@ function StreamingHome() {
 
   function handleDragEnd(event) {
 
+    console.log("🚀 ~ handleDragEnd ~ event.over.id, event.active.id:", event.over.id, event.active.id)
+    updateDocument(event.active.id, { watchStatus: event.over.id })
     moveElementToNewContainer(event.over.id, event.active.id);
 
   }
@@ -240,35 +246,50 @@ function StreamingHome() {
             {filters.map((filter) => <FireChip label={filter.label} active={filter == activeFilter} onClick={() => { setActiveFilter(filter) }} />)}
           </Paper>
         </Box>
+        {
+          containers.map((container) => {
+            return (
+              <Droppable key={container.id} id={container.id}>
+
+                <Accordion defaultExpanded={container.id == "currentlyWatching"}>
 
 
-        {containers.map((container) => {
-          return (
-            <Droppable key={container.id} id={container.id}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1-content"
+                    id="panel1-header"
+                  >
+                    <Typography sx={{ margin: "16px" }} >{container.name}</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails sx={{ backgroundColor: "#003566" }}>
+                    {
 
-              <Typography sx={{ margin: "16px" }} >{container.name}</Typography>
-              <Divider sx={{ backgroundColor: "white", margin: "10px" }}></Divider>
-              {
 
+                      <Droppable key={container.id} id={container.id}>
+                        <Box sx={{ display: 'flex', flexDirection: 'row', gap: '10px', flexWrap: 'wrap' }}>
+                          {documentsObject[container.id] && documentsObject[container.id].map((doc) => {
+                            return (
+                              <>
+                                {(activeFilter.value == "all" || activeFilter.value == doc.idType) ?
+                                  <Draggable key={doc.id} id={doc.id}>
+                                    <MediaCard deleteDocument={deleteDocument} updateEpisode={updateDocument} episode={doc} key={doc.id}></MediaCard>
+                                  </Draggable>
+                                  : <> </>}
+                              </>
+                            )
+                          })}
+                        </Box>
+                      </Droppable>
 
-                <Droppable key={container.id} id={container.id}>
-                  <Box sx={{ display: 'flex', flexDirection: 'row', gap: '10px', flexWrap: 'wrap' }}>
+                    }
+                  </AccordionDetails>
 
-                    {documentsObject[container.id] && documentsObject[container.id].map((doc) => {
-                      return (
-                        <Draggable key={doc.id} id={doc.id}>
-                          <MediaCard deleteDocument={deleteDocument} updateEpisode={updateDocument} episode={doc} key={doc.id}></MediaCard>
-                        </Draggable>
-                      )
-                    })}
-                  </Box>
-                </Droppable>
-
-              }
-            </Droppable>
-          )
-        })}
-      </DndContext>
+                </Accordion>
+              </Droppable>
+            )
+          })
+        }
+      </DndContext >
     </PrivateRoute >
 
   );

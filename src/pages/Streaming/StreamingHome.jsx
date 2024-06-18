@@ -1,5 +1,4 @@
 import SignoutButton from '../../global_components/SignoutButton';
-import { DndContext } from '@dnd-kit/core';
 import FireButton from '../../global_components/Button';
 import PrivateRoute from '../../global_components/SignInSignUpPage';
 import VideoPlayer from './VideoPlayer';
@@ -24,8 +23,10 @@ import { TestDraggable } from './testdrag';
 import { Droppable } from './Droppable';
 import { Draggable } from './Draggable';
 
+import { DndContext, KeyboardSensor, MouseSensor, PointerSensor, TouchSensor, closestCorners, useSensor, useSensors } from "@dnd-kit/core"
 import FireModal from '../../global_components/FireModal';
-
+import MediaCard from './MediaCard';
+import { arrayMove, horizontalListSortingStrategy, sortableKeyboardCoordinates, SortableContext } from "@dnd-kit/sortable";
 const titles = ["harry potter and the deathly hallows", "real steal", "red bug", "the night before christmas", "ben ten", "friends", "how i met your mother", "there is only one", "like i used to be", "to be a bride"]
 export const watchStatuses = {
   currentlyWatching: "currentlyWatching",
@@ -48,9 +49,27 @@ export class Episode {
 function StreamingHome() {
   const [user, setUser] = useState(null);
   const [documents, setDocuments] = useState([]);
+  const [documentsObject, setDocumentsObject] = useState({});
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState([{ label: "All", value: "all" }, { label: "Movie", value: "movie" }, { label: "TV Show", value: "tvshow" }]);
   const [activeFilter, setActiveFilter] = useState(filters[0]);
+  const containers = [{ id: "currentlyWatching", name: "Currently Watching" }, { id: "watchList", name: "Watch Later" }, { id: "archived", name: "Archive" }];
+  const sensors = useSensors(
+    useSensor(MouseSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 200,
+        tolerance: 6,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
+  );
   const fetchDocuments = async () => {
     const db = firebase.firestore();
     if (!user) {
@@ -74,8 +93,15 @@ function StreamingHome() {
         }
         return 0;
       });
-
+      const documentsObject = containers.reduce((acc, container) => {
+        return {
+          ...acc,
+          [container.id]: docs.filter(doc => doc.watchStatus == container.id)
+        }
+      }, {})
+      console.log("🚀 ~ documentsObject ~ documentsObject:", documentsObject)
       setDocuments(docs);
+      setDocumentsObject(documentsObject);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching user documents:", error);
@@ -143,11 +169,52 @@ function StreamingHome() {
       setLoading(false);
     }
   }, [documents, user]);
+  const moveElementToNewContainer = (destinationContainerId, elementId) => {
+    setDocumentsObject(prevState => {
+      let currentContainerId;
+      // Find the current container of the element
+      for (const [key, value] of Object.entries(prevState)) {
+        if (value.find(el => el.id === elementId)) {
+          currentContainerId = key;
+          break;
+        }
+      }
 
+      if (!currentContainerId) return prevState; // If element not found in any container, return previous state
 
+      const fromArray = [...prevState[currentContainerId]];
+      const toArray = [...prevState[destinationContainerId]];
+
+      const newElementIndex = toArray.findIndex(el => el.id === elementId);
+      if (newElementIndex !== -1) return prevState; // Element already exists in the destination container
+
+      const elementIndex = fromArray.findIndex(el => el.id === elementId);
+      if (elementIndex === -1) return prevState; // Element not found in the source container
+
+      const [movedElement] = fromArray.splice(elementIndex, 1);
+      movedElement.parent = destinationContainerId; // Update the parent property
+      toArray.push(movedElement);
+
+      return {
+        ...prevState,
+        [currentContainerId]: fromArray,
+        [destinationContainerId]: toArray
+      };
+    });
+  };
+
+  function handleDragEnd(event) {
+
+    moveElementToNewContainer(event.over.id, event.active.id);
+
+  }
   return (
     <PrivateRoute user={user} setUser={setUser}>
-      <DndContext>
+      <DndContext
+        onDragEnd={handleDragEnd}
+        sensors={sensors}
+        collisionDetection={closestCorners}
+      >
         <Paper style={{ margin: "20px", padding: '20px', backgroundColor: 'white', display: "flex", justifyContent: "space-between", alignItems: "start" }}>
           <Box>
 
@@ -164,81 +231,43 @@ function StreamingHome() {
             <SignoutButton setUser={setUser}></SignoutButton>
           </Box>
         </Paper>
-        <Box>
-          <Box sx={{ margin: "20px" }}>
+        <Box sx={{ margin: "20px" }}>
 
 
-            <MediaForm fetchDocuments={fetchDocuments} writeShowToFirestore={writeShowToFirestore}></MediaForm>
+          <MediaForm fetchDocuments={fetchDocuments} writeShowToFirestore={writeShowToFirestore}></MediaForm>
 
-            <Paper style={{ marginTop: "20px", padding: '20px', backgroundColor: 'white', display: "flex", gap: "10px" }}>
-              {filters.map((filter) => <FireChip label={filter.label} active={filter == activeFilter} onClick={() => { setActiveFilter(filter) }} />)}
-            </Paper>
-          </Box>
-
-          <Box sx={{ margin: "20px" }}>
-
-            <Typography sx={{ margin: "16px" }} >Continue Watching</Typography>
-            <Divider sx={{ backgroundColor: "white", margin: "10px" }}></Divider>
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', }}>
-              {
-                documents.map((doc) => {
-                  return (
-                    <>
-                      {
-                        (activeFilter.value == "all" || activeFilter.value == doc.idType) && doc.watchStatus == watchStatuses.currentlyWatching ?
-                          <DraggableMediaCard deleteDocument={deleteDocument} updateEpisode={updateDocument} episode={doc} key={doc.id}></DraggableMediaCard>
-                          : <> </>
-                      }
-                    </>
-                  )
-                })
-              }
-            </Box>
-
-            <Typography sx={{ margin: "16px" }} >Watch List</Typography>
-            <Divider sx={{ backgroundColor: "white", margin: "10px" }}></Divider>
-
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', }}>
-              {
-                documents.map((doc) => {
-                  return (
-                    <>
-                      {
-                        (activeFilter.value == "all" || activeFilter.value == doc.idType) && doc.watchStatus == watchStatuses.watchList ?
-                          <DraggableMediaCard deleteDocument={deleteDocument} updateEpisode={updateDocument} episode={doc} key={doc.id}></DraggableMediaCard>
-                          : <> </>
-                      }
-                    </>
-                  )
-                })
-              }
-            </Box>
-
-            <Typography sx={{ margin: "16px" }} >Archive</Typography>
-            <Divider sx={{ backgroundColor: "white", margin: "10px" }}></Divider>
-
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', }}>
-              {
-                documents.map((doc) => {
-                  return (
-                    <>
-                      {
-                        (activeFilter.value == "all" || activeFilter.value == doc.idType) && (doc.watchStatus == watchStatuses.archived || doc.watchStatus == null) ?
-
-                          <DraggableMediaCard deleteDocument={deleteDocument} updateEpisode={updateDocument} episode={doc} key={doc.id}></DraggableMediaCard>
-                          : <> </>
-                      }
-                    </>
-                  )
-                })
-              }
-            </Box>
-
-          </Box>
+          <Paper style={{ marginTop: "20px", padding: '20px', backgroundColor: 'white', display: "flex", gap: "10px" }}>
+            {filters.map((filter) => <FireChip label={filter.label} active={filter == activeFilter} onClick={() => { setActiveFilter(filter) }} />)}
+          </Paper>
         </Box>
 
-        <TestDraggable> </TestDraggable>
 
+        {containers.map((container) => {
+          return (
+            <Droppable key={container.id} id={container.id}>
+
+              <Typography sx={{ margin: "16px" }} >{container.name}</Typography>
+              <Divider sx={{ backgroundColor: "white", margin: "10px" }}></Divider>
+              {
+
+
+                <Droppable key={container.id} id={container.id}>
+                  <Box sx={{ display: 'flex', flexDirection: 'row', gap: '10px', flexWrap: 'wrap' }}>
+
+                    {documentsObject[container.id] && documentsObject[container.id].map((doc) => {
+                      return (
+                        <Draggable key={doc.id} id={doc.id}>
+                          <MediaCard deleteDocument={deleteDocument} updateEpisode={updateDocument} episode={doc} key={doc.id}></MediaCard>
+                        </Draggable>
+                      )
+                    })}
+                  </Box>
+                </Droppable>
+
+              }
+            </Droppable>
+          )
+        })}
       </DndContext>
     </PrivateRoute >
 
